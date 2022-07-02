@@ -45,10 +45,6 @@ public class Inicio extends JFrame {
         return true;
     }
 
-    public static void goAtualizarTela(Inicio frame, Robo robo, List<List<Integer>> mat) {
-
-    }
-
     public static Boolean caminhoJaPercorrido(Robo robo, int direcao) {
         for (Integer dir : robo.getMovimentos()) {
             if (dir.equals(direcao)) {
@@ -75,7 +71,8 @@ public class Inicio extends JFrame {
         int j = 0;
 
         while (!acabar(robo)) {
-            List<Integer> pos = Algoritmos.olharRaio(mat, robo.getPosi(), robo.getPosj(), tamMat, 4);
+
+            List<Integer> pos = fabricaParaConsertar(robo);
 
             if (pos != null) {
                 Caminho caminho = Aestrela.inicio(robo.getPosi(), robo.getPosj(), pos.get(0), pos.get(1), tamMat, mat);
@@ -85,6 +82,7 @@ public class Inicio extends JFrame {
                     destino.add(caminho);
                     caminho = caminho.getPai();
                 }
+
                 Collections.reverse(destino);
 
                 i = 0;
@@ -103,22 +101,79 @@ public class Inicio extends JFrame {
                         e.printStackTrace();
                     }
                     if (i == j) {
-                        pegarItem(robo, mat.get(robo.getPosi()).get(robo.getPosj()));
+                        consertarFabrica(robo, robo.getPosi(), robo.getPosj());
                         mat.get(robo.getPosi()).set(robo.getPosj(), 0);
                     }
                 }
             } else {
-                escolherMovimento(robo);
-                frame.atualizarTela(mat, robo);
-                frame.setVisible(true);
+                pos = Algoritmos.olharRaio(mat, robo.getPosi(), robo.getPosj(), tamMat, 4);
+                if (pos != null) {
+                    Caminho caminho = Aestrela.inicio(robo.getPosi(), robo.getPosj(), pos.get(0), pos.get(1), tamMat, mat);
+                    List<Caminho> destino = new ArrayList<>();
 
-                try {
-                    sleep(1200);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    while (caminho.getPai() != null) {
+                        destino.add(caminho);
+                        caminho = caminho.getPai();
+                    }
+
+                    Collections.reverse(destino);
+
+                    i = 0;
+                    j = destino.size();
+                    for (Caminho path : destino) {
+                        i++;
+                        robo.setPosi(path.getLinha());
+                        robo.setPosj(path.getColuna());
+
+                        frame.atualizarTela(mat, robo);
+                        frame.setVisible(true);
+
+                        try {
+                            sleep(1200);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (i == j) {
+                            pegarItem(robo, mat.get(robo.getPosi()).get(robo.getPosj()));
+                            mat.get(robo.getPosi()).set(robo.getPosj(), 0);
+                        }
+                    }
+                } else {
+                    escolherMovimento(robo);
+                    frame.atualizarTela(mat, robo);
+                    frame.setVisible(true);
+
+                    try {
+                        sleep(1200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
+    }
+
+    public static void consertarFabrica(Robo robo, int posI, int posJ) {
+        int i = 0;
+
+        for (Fabricas fabrica : robo.getFabricas()) {
+            if (fabrica.getPosi() == posI && fabrica.getPosj() == posJ) {
+                break;
+            }
+            i++;
+        }
+
+        robo.setBomba(robo.getBomba() - robo.getFabricas().get(i).getBomba());
+        robo.setRefrigeracao(robo.getRefrigeracao() - robo.getFabricas().get(i).getRefrigeracao());
+        robo.setBaterias(robo.getBaterias() - robo.getFabricas().get(i).getBaterias());
+        robo.setBracoSol(robo.getBracoSol() - robo.getFabricas().get(i).getBracoSol());
+        robo.setBracoPneu(robo.getBracoPneu() - robo.getFabricas().get(i).getBracoPneu());
+
+        robo.getFabricas().get(i).setBomba(0);
+        robo.getFabricas().get(i).setBracoPneu(0);
+        robo.getFabricas().get(i).setBracoSol(0);
+        robo.getFabricas().get(i).setRefrigeracao(0);
+        robo.getFabricas().get(i).setBaterias(0);
     }
 
     public static void escolherMovimento(Robo robo) {
@@ -129,49 +184,41 @@ public class Inicio extends JFrame {
                 int randomNum = rand.nextInt((4 - 1) + 1) + 1;
 
                 if (randomNum == 1) {
-                    if (!caminhoJaPercorrido(robo, 3)) {
-                        robo.setPosi(robo.getPosi() - 1);
-                        if (robo.getMovimentos().size() == 2) {
-                            robo.getMovimentos().remove(0);
-                            robo.getMovimentos().add(1);
-                            break;
-                        } else {
-                            robo.getMovimentos().add(1);
-                            break;
-                        }
+                    robo.setPosi(robo.getPosi() - 1);
+                    if (robo.getMovimentos().size() == 2) {
+                        robo.getMovimentos().remove(0);
+                        robo.getMovimentos().add(1);
+                        break;
+                    } else {
+                        robo.getMovimentos().add(1);
+                        break;
                     }
                 } else if (randomNum == 2) {
-                    if (!caminhoJaPercorrido(robo, 4)) {
-                        robo.setPosi(robo.getPosj() + 1);
-                        if (robo.getMovimentos().size() == 2) {
-                            robo.getMovimentos().remove(0);
-                            robo.getMovimentos().add(2);
-                            break;
-                        } else {
-                            robo.getMovimentos().add(2);
-                            break;
-                        }
+                    robo.setPosi(robo.getPosj() + 1);
+                    if (robo.getMovimentos().size() == 2) {
+                        robo.getMovimentos().remove(0);
+                        robo.getMovimentos().add(2);
+                        break;
+                    } else {
+                        robo.getMovimentos().add(2);
+                        break;
                     }
                 } else if (randomNum == 3) {
-                    if (!caminhoJaPercorrido(robo, 1)) {
-                        robo.setPosi(robo.getPosi() + 1);
-                        if (robo.getMovimentos().size() == 2) {
-                            robo.getMovimentos().remove(0);
-                            robo.getMovimentos().add(3);
-                            break;
-                        } else {
-                            robo.getMovimentos().add(3);
-                            break;
-                        }
+                    robo.setPosi(robo.getPosi() + 1);
+                    if (robo.getMovimentos().size() == 2) {
+                        robo.getMovimentos().remove(0);
+                        robo.getMovimentos().add(3);
+                        break;
+                    } else {
+                        robo.getMovimentos().add(3);
+                        break;
                     }
                 } else {
-                    if (!caminhoJaPercorrido(robo, 2)) {
-                        robo.setPosi(robo.getPosj() - 1);
-                        if (robo.getMovimentos().size() == 1) {
-                            robo.getMovimentos().remove(0);
-                            robo.getMovimentos().add(2);
-                            break;
-                        }
+                    robo.setPosi(robo.getPosj() - 1);
+                    if (robo.getMovimentos().size() == 1) {
+                        robo.getMovimentos().remove(0);
+                        robo.getMovimentos().add(2);
+                        break;
                     }
                 }
             }
@@ -184,6 +231,28 @@ public class Inicio extends JFrame {
 
             robo.setMovimentos(aux);
         }
+    }
+
+    public static List<Integer> fabricaParaConsertar(Robo robo) {
+        for (Fabricas fabrica : robo.getFabricas()) {
+            if (fabricaPronta(fabrica, robo)) {
+                List<Integer> lista = new ArrayList<>();
+                lista.add(fabrica.getPosi());
+                lista.add(fabrica.getPosj());
+
+                return lista;
+            }
+        }
+
+        return null;
+    }
+
+    public static Boolean fabricaPronta(Fabricas fabrica, Robo robo) {
+        return robo.getBaterias() >= fabrica.getBaterias()
+                && robo.getBomba() >= fabrica.getBomba()
+                && robo.getBracoPneu() >= fabrica.getBracoPneu()
+                && robo.getBracoSol() >= fabrica.getBracoSol()
+                && robo.getRefrigeracao() >= fabrica.getRefrigeracao();
     }
 
     public static void pegarItem(Robo robo, int item) {
