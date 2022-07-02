@@ -19,10 +19,8 @@ public class Caminho implements Cloneable {
     private Integer h;
     private Integer g;
 
-
     @Override
     public Caminho clone() throws CloneNotSupportedException {
         return (Caminho) super.clone();
     }
-
 }

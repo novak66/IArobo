@@ -1,20 +1,18 @@
 
-U	java:S106"9Replace this use of System.out or System.err by a logger.(ºŸë‡8ˆ½šš0
-Z
-java:S1197"8Move the array designator from the variable to the type.(¡şÏÖøÿÿÿÿ8Çû†—š0
-L
-java:S1481"*Remove this unused "linha" local variable.(™‰ïùÿÿÿÿ8•ÿ™š0
-z	java:S135"YReduce the total number of break and continue statements in this loop to use at most one.(˜ïˆÿÿÿÿÿ8Üø“šš0
-o
-java:S3776"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(¼œÏı8á¨Ššš0
-M
-java:S1481"+Remove this unused "coluna" local variable.(¬»âúúÿÿÿÿ8•ÿ™š0
-i	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(·š†‡8Çû†—š0
-[
-java:S1854"9Remove this useless assignment to local variable "linha".(™‰ïùÿÿÿÿ8•ÿ™š0
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(°€Òşÿÿÿÿ
-\
-java:S1854":Remove this useless assignment to local variable "coluna".(¬»âúúÿÿÿÿ8•ÿ™š0
+v
+java:S1450"ZRemove the "contentPane" field and declare it as a local variable in the relevant methods.(Ä¯_8Ëƒ“¹›0
+k
+java:S3252"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(Õû»öşÿÿÿÿ8ä¤Ò¸›0
+W	java:S1255"<This block of commented-out lines of code should be removed.(Õ¾¢8¼›²¸›0
 n
-java:S1223"LRename this method to prevent any misunderstanding or make it a constructor.(¡şÏÖøÿÿÿÿ8Çû†—š0
-Z	java:S106"9Replace this use of System.out or System.err by a logger.(·±÷šüÿÿÿÿ8§ãÓ¸š0
+java:S1223'"LRename this method to prevent any misunderstanding or make it a constructor.(²Á€œüÿÿÿÿ8¼›²¸›0
+]	java:S125+"<This block of commented-out lines of code should be removed.(ª˜Ãíúÿÿÿÿ8¼›²¸›0
+]	java:S110"<This class has 6 parents which is greater than 5 authorized.(°†á§úÿÿÿÿ8ø¢ç¸›0
+X	java:S1253"<This block of commented-out lines of code should be removed.(Ã¾öÇ8¼›²¸›0
+n	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(°†á§úÿÿÿÿ8Çû†—š0
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(°€Òşÿÿÿÿ
+]	java:S125-"<This block of commented-out lines of code should be removed.( ¸¸ùÿÿÿÿ8¼›²¸›0
+Z
+java:S1197'"8Move the array designator from the variable to the type.(²Á€œüÿÿÿÿ8¼›²¸›0
+]	java:S125)"<This block of commented-out lines of code should be removed.(ª˜Ãíúÿÿÿÿ8¼›²¸›0
+]	java:S1251"<This block of commented-out lines of code should be removed.(¢ıëÔúÿÿÿÿ8¼›²¸›0

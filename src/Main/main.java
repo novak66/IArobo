@@ -1,58 +1,29 @@
 package Main;
 
-import Aestrela.Aestrela;
-import clases.Caminho;
+import Inicio.Inicio;
+import clases.Fabricas;
+import clases.Robo;
+import configuracao.ConfiguracaoInicial;
 
-public class main {
+import java.io.IOException;
+import java.util.List;
 
-    public static void main(String args[]) {
+class main {
 
-        Caminho caminho = Aestrela.inicio(2, 3, 2, 4, 6);
+    public static void main(String args[]) throws IOException {
 
-        System.out.println(caminho);
-    }
+        //Caminho caminho = Aestrela.inicio(2, 3, 2, 4, 6, );
 
-    public static void printarCaminho(Caminho caminho) {
-        System.out.println(caminho);
-        Integer linha = caminho.getLinha();
-        Integer coluna = caminho.getColuna();
+        //Caminho caminho = Aestrela.inicio(2, 3, 2, 4, 6);
 
-        while (true) {
-            if (caminho.getFilhos() != null) {
-                caminho = caminho.getFilhos().get(0);
-            } else {
-                System.out.println(caminho.getLinha() + " " + caminho.getColuna());
-                while (true) {
-                    if (caminho == null) {
-                        break;
-                    }
+        //System.out.println(caminho);
 
-                    Integer linhaAtual = caminho.getLinha();
-                    Integer colunaAtual = caminho.getColuna();
+        List<List<Integer>> mat = ConfiguracaoInicial.criarMatriz();
 
-                    caminho = caminho.getPai();
-                    int k = 0;
-                    for (Caminho caminhos : caminho.getFilhos()) {
-                        if (caminhos.getColuna().equals(colunaAtual) && caminhos.getLinha().equals(linhaAtual)) {
-                            k++;
-                            break;
-                        }
+        List<Fabricas> fabricas = ConfiguracaoInicial.popularFabricas(mat);
 
-                        k++;
-                    }
+        Robo robo = ConfiguracaoInicial.inciarRobo(fabricas, 3, 4);
 
-                    if (caminho.getFilhos().size() > k) {
-                        caminho = caminho.getFilhos().get(k);
-                        break;
-                    } else {
-                        caminho = caminho.getPai();
-                    }
-                }
-            }
-
-            if (caminho == null) {
-                break;
-            }
-        }
+        Inicio.comecar(mat, robo);
     }
 }

@@ -93,11 +93,12 @@ public class Aestrela {
     }
 
     public static int adicionarLista(Integer linha,
-                                      Integer coluna,
-                                      Integer linhaDestino,
-                                      Integer colunaDestino,
-                                      List<Lista> listaAberta,
-                                      Caminho caminho) {
+                                     Integer coluna,
+                                     Integer linhaDestino,
+                                     Integer colunaDestino,
+                                     List<Lista> listaAberta,
+                                     Caminho caminho,
+                                     List<List<Integer>> mat) {
 
         if (caminho.getLinha() == null) {
             Lista lista = new Lista();
@@ -116,11 +117,7 @@ public class Aestrela {
             caminho.setF(lista.getF());
             return 0;
         }
-        int custo = 3;
-
-        if (caminho.getColuna().intValue() != coluna.intValue()) {
-            custo = 2;
-        }
+        int custo = custoAtual(mat, caminho.getLinha().intValue(), caminho.getColuna().intValue());
 
         Lista lista = contidoListaAberta(listaAberta, linha, coluna);
 
@@ -146,7 +143,13 @@ public class Aestrela {
                 caminhoAntigo.setG(lista.getG());
                 caminhoAntigo.setF(lista.getF());
 
-                caminho.getFilhos().add(caminhoAntigo);
+                if(caminho.getFilhos() == null) {
+                    List<Caminho> c = new ArrayList<>();
+                    c.add(caminhoAntigo);
+                    caminho.setFilhos(c);
+                } else {
+                    caminho.getFilhos().add(caminhoAntigo);
+                }
             }
         } else {
             Integer distanciaDestino;
@@ -182,6 +185,14 @@ public class Aestrela {
         return list;
     }
 
+    public static int custoAtual(List<List<Integer>> mat, int i, int j) {
+        if (mat.get(i).get(j) == 0) {
+            return 1;
+        }
+
+        return mat.get(i).get(j) * 5;
+    }
+
     public static Boolean filhoNaoVisitado(Caminho caminhos) {
         for (Caminho caminho : caminhos.getFilhos()) {
             if (!caminho.getVisitado()) {
@@ -196,7 +207,8 @@ public class Aestrela {
                                  Integer colunaInicial,
                                  Integer linhaDestino,
                                  Integer colunaDestino,
-                                 Integer tamMat) {
+                                 Integer tamMat,
+                                 List<List<Integer>> mat) {
 
         List<Lista> listaAberta = new ArrayList<>();
         List<Lista> listaFechada = new ArrayList<>();
@@ -205,8 +217,7 @@ public class Aestrela {
 
         Caminho caminho = new Caminho();
 
-
-        adicionarLista(linhaInicial, colunaInicial, linhaDestino, colunaDestino, listaAberta, caminho);
+        adicionarLista(linhaInicial, colunaInicial, linhaDestino, colunaDestino, listaAberta, caminho, mat);
         Caminho caminhoPai = caminho;
         while (true) {
             int linha = listaAberta.get(posListaAtual).getLinha();
@@ -217,9 +228,7 @@ public class Aestrela {
             int ultimoElemento = listaFechada.size() - 1;
             Caminho caminhoAux = caminhoPai;
 
-
             caminho = acharCaminho(caminhoPai, linha, coluna);
-
 
             if (caminhoEqualDestino(caminho, linhaDestino, colunaDestino)) {
                 return caminho;
@@ -233,7 +242,7 @@ public class Aestrela {
                     && coluna >= 0
                     && !acharElementoLista(listaFechada, linha, coluna)) {
 
-                adicionarLista(linha, coluna, linhaDestino, colunaDestino, listaAberta, caminho);
+                adicionarLista(linha, coluna, linhaDestino, colunaDestino, listaAberta, caminho, mat);
             }
 
             linha = listaFechada.get(ultimoElemento).getLinha();
@@ -243,7 +252,7 @@ public class Aestrela {
                     && coluna < tamMat
                     && !acharElementoLista(listaFechada, linha, coluna)) {
 
-                adicionarLista(linha, coluna, linhaDestino, colunaDestino, listaAberta, caminho);
+                adicionarLista(linha, coluna, linhaDestino, colunaDestino, listaAberta, caminho, mat);
             }
 
             linha = listaFechada.get(ultimoElemento).getLinha() + 1;
@@ -252,7 +261,7 @@ public class Aestrela {
             if (linha < tamMat
                     && coluna < tamMat
                     && !acharElementoLista(listaFechada, linha, coluna)) {
-                adicionarLista(linha, coluna, linhaDestino, colunaDestino, listaAberta, caminho);
+                adicionarLista(linha, coluna, linhaDestino, colunaDestino, listaAberta, caminho, mat);
             }
 
             linha = listaFechada.get(ultimoElemento).getLinha();
@@ -262,7 +271,7 @@ public class Aestrela {
                     && coluna >= 0
                     && !acharElementoLista(listaFechada, linha, coluna)) {
 
-                adicionarLista(linha, coluna, linhaDestino, colunaDestino, listaAberta, caminho);
+                adicionarLista(linha, coluna, linhaDestino, colunaDestino, listaAberta, caminho, mat);
             }
 
             posListaAtual = acharMenor(listaAberta);

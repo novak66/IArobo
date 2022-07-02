@@ -1,24 +1,28 @@
 
-F
-java:S5411\"*Use the primitive boolean expression here.(ıÙÁ8²ãó—š0
-L
-java:S5411d"*Use the primitive boolean expression here.(Å©Ùîÿÿÿÿÿ8æÊõ—š0
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ßš¼Ÿøÿÿÿÿ
 H
-java:S1172:"&Remove these unused method parameters.(ª›øÅÿÿÿÿÿ8çÅ—š0
-t
-java:S37768"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(µÙÈĞúÿÿÿÿ8ûş›™š0
-\
-java:S1155™">Use isEmpty() to check whether the collection is empty or not.(É–œ8Ì™¯Äš0
-G
-java:S54110"*Use the primitive boolean expression here.(’•ûÊ8™Ã³¹š0
+java:S5411»"*Use the primitive boolean expression here.(’•ûÊ8™Ã³¹š0
+H
+java:S5411ª"*Use the primitive boolean expression here.(’•ûÊ8™ò­Äš0
 u
-java:S3776‹"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(Çæ«•øÿÿÿÿ8£”ÃÄš0
-G
-java:S5411T"*Use the primitive boolean expression here.(çÍãƒ8Óíñ—š0
-L
-java:S5411L"*Use the primitive boolean expression here.(Å©Ùîÿÿÿÿÿ8Óíñ—š0
-H
-java:S5411”"*Use the primitive boolean expression here.(’•ûÊ8™ò­Äš0
+java:S3776¥"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(Çæ«•øÿÿÿÿ8£”ÃÄš0
 W
 java:S1118":Add a private constructor to hide the implicit public one.(›ˆ¨­8™Ã³¹š0
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ßš¼Ÿøÿÿÿÿ
+[
+java:S3516_"9Refactor this method to not always return the same value.(—è½ìşÿÿÿÿ8¯Å¸›0
+\
+java:S1155Ù">Use isEmpty() to check whether the collection is empty or not.(¾­ú·8¯Å¸›0
+M
+java:S5411à"*Use the primitive boolean expression here.(É‘–Ğùÿÿÿÿ8¯Å¸›0
+H
+java:S5411ê"*Use the primitive boolean expression here.(Ìÿ¥£8¯Å¸›0
+H
+java:S5411ô"*Use the primitive boolean expression here.(Ìÿ¥£8¯Å¸›0
+H
+java:S5411ş"*Use the primitive boolean expression here.(Ìÿ¥£8¯Å¸›0
+H
+java:S5411‡"*Use the primitive boolean expression here.(Ìÿ¥£8¯Å¸›0
+G
+java:S5411¨"*Use the primitive boolean expression here.(¿†˜@8¯Å¸›0
+n
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(ùÎ<8¯Å¸›0
