@@ -15,4 +15,5 @@ public class Fabricas {
     int bomba;
     int refrigeracao;
     int bracoPneu;
+    Boolean consertada;
 }

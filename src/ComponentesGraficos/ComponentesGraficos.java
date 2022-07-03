@@ -1,6 +1,7 @@
 package ComponentesGraficos;
 
 import Algoritmos.Algoritmos;
+import clases.Caminho;
 import clases.Robo;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ public class ComponentesGraficos extends JPanel {
     private int column;
     private JLabel[][] squares;
 
-    public ComponentesGraficos(int rows, int column, List<List<Integer>> matriz, Robo robo) {
+    public ComponentesGraficos(int rows, int column, List<List<Integer>> matriz, Robo robo, List<Caminho> destino) {
         this.rows = rows;
         this.column = column;
         this.setLayout(new GridLayout(this.rows, this.rows));
@@ -24,7 +25,7 @@ public class ComponentesGraficos extends JPanel {
             for (int c = 0; c < this.column; c++) {
                 SquareLabel square = new SquareLabel();
                 square.setSize(1, 1);
-                square.setBackground(defineColor(matriz, r, c, robo));
+                square.setBackground(defineColor(matriz, r, c, robo, destino));
                 this.squares[r][c] = square;
                 this.add(square);
             }
@@ -50,12 +51,33 @@ public class ComponentesGraficos extends JPanel {
         return Color.black;
     }
 
-    public static Color defineColor(List<List<Integer>> matriz, int row, int column, Robo robo) {
+    public static Boolean contidoDestino(int row, int column, List<Caminho> destino) {
+        int i=0;
+        int j = destino.size();
+        for(Caminho caminho : destino) {
+            if(i == j -1) {
+                return false;
+            }
+            if(caminho.getLinha().equals(row) && caminho.getColuna().equals(column)) {
+                return true;
+            }
+
+            i++;
+        }
+
+        return false;
+    }
+
+    public static Color defineColor(List<List<Integer>> matriz, int row, int column, Robo robo, List<Caminho> destino) {
         int roboI = robo.getPosi();
         int roboJ = robo.getPosj();
 
         if (row == roboI && column == roboJ) {
             return Color.BLACK;
+        }
+
+        if(destino != null && contidoDestino(row, column, destino)) {
+            return Color.darkGray;
         }
 
         if (matriz.get(row).get(column) == 4) {
@@ -79,7 +101,7 @@ public class ComponentesGraficos extends JPanel {
         }
 
         if (matriz.get(row).get(column) == 9) {
-            return new Color(165,42,42);
+            return new Color(165, 42, 42);
         }
 
         if (matriz.get(row).get(column) == 10) {

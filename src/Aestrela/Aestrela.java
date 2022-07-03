@@ -154,8 +154,18 @@ public class Aestrela {
         } else {
             Integer distanciaDestino;
 
-            distanciaDestino = java.lang.Math.abs(linha.intValue() - linhaDestino.intValue()) * 2;
-            distanciaDestino += java.lang.Math.abs(coluna.intValue() - colunaDestino.intValue()) * 3;
+            distanciaDestino = 0;
+
+            int i = 0;
+            int j = 0;
+
+            for(i = linhaDestino.intValue();i<linha.intValue(); i++) {
+                distanciaDestino += custoAtual(mat, i, j);
+            }
+
+            for(j = coluna.intValue(); j < colunaDestino.intValue(); j++) {
+                distanciaDestino += custoAtual(mat, i, j);
+            }
 
             lista = new Lista();
             lista.setLinha(linha);
@@ -186,21 +196,11 @@ public class Aestrela {
     }
 
     public static int custoAtual(List<List<Integer>> mat, int i, int j) {
-        if (mat.get(i).get(j) == 0) {
+        if (mat.get(i).get(j) == 0 || mat.get(i).get(j) > 3) {
             return 1;
         }
 
         return mat.get(i).get(j) * 5;
-    }
-
-    public static Boolean filhoNaoVisitado(Caminho caminhos) {
-        for (Caminho caminho : caminhos.getFilhos()) {
-            if (!caminho.getVisitado()) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public static Caminho inicio(Integer linhaInicial,
@@ -296,42 +296,6 @@ public class Aestrela {
             caminho.getFilhos().add(caminhoFilho);
         } else {
             caminho.setFilhos(caminhos);
-        }
-    }
-
-    public static Caminho proximoCaminho(Caminho caminhos) {
-        caminhos.setVisitado(true);
-
-        if (filhoNaoVisitado(caminhos.getPai())) {
-            for (Caminho caminho : caminhos.getPai().getFilhos()) {
-                if (!caminho.getVisitado()) {
-                    return caminho;
-                }
-            }
-        }
-
-        while (true) {
-            Integer linha = caminhos.getLinha();
-            Integer coluna = caminhos.getColuna();
-
-            caminhos = caminhos.getPai();
-
-            int k = 0;
-
-            for (Caminho caminho : caminhos.getFilhos()) {
-                if (caminho.getLinha().equals(linha) && caminho.getColuna().equals(coluna)) {
-                    break;
-                }
-                k++;
-            }
-
-            if (caminhos.getFilhos().size() > k + 1) {
-                return tudoPraEsquerda(caminhos.getFilhos().get(k + 1));
-            }
-
-            if (caminhos.getPai() == null) {
-                return tudoPraEsquerda(caminhos);
-            }
         }
     }
 

@@ -158,6 +158,7 @@ public class ConfiguracaoInicial {
         fabrica.setTipoFabrica(4);
         fabrica.setBracoSol(0);
         fabrica.setRefrigeracao(0);
+        fabrica.setConsertada(false);
 
         return fabrica;
     }
@@ -173,6 +174,7 @@ public class ConfiguracaoInicial {
         fabrica.setTipoFabrica(5);
         fabrica.setBracoSol(5);
         fabrica.setRefrigeracao(0);
+        fabrica.setConsertada(false);
 
         return fabrica;
     }
@@ -188,6 +190,7 @@ public class ConfiguracaoInicial {
         fabrica.setTipoFabrica(6);
         fabrica.setBracoSol(0);
         fabrica.setRefrigeracao(0);
+        fabrica.setConsertada(false);
 
         return fabrica;
     }
@@ -203,6 +206,7 @@ public class ConfiguracaoInicial {
         fabrica.setTipoFabrica(7);
         fabrica.setBracoSol(0);
         fabrica.setRefrigeracao(5);
+        fabrica.setConsertada(false);
 
         return fabrica;
     }
@@ -218,6 +222,7 @@ public class ConfiguracaoInicial {
         fabrica.setTipoFabrica(0);
         fabrica.setBracoSol(0);
         fabrica.setRefrigeracao(0);
+        fabrica.setConsertada(false);
 
         return fabrica;
     }
@@ -240,12 +245,15 @@ public class ConfiguracaoInicial {
     public static List<Fabricas> popularFabricas(List<List<Integer>> mat) {
         List<Fabricas> fabricas = new ArrayList<>();
         int i = 0;
+        int j=0;
         for (List<Integer> matrizI : mat) {
+            j=0;
             for (Integer matrizJ : matrizI) {
                 if (matrizJ.intValue() > 3 && matrizJ.intValue() < 9) {
-                    Fabricas fabrica = escolherFabrica(matrizJ.intValue(), matrizJ.intValue(), i);
+                    Fabricas fabrica = escolherFabrica(matrizJ.intValue(), i, j);
                     fabricas.add(fabrica);
                 }
+                j++;
             }
 
             i++;
